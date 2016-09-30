@@ -11,6 +11,8 @@ import android.widget.SeekBar; // for changing the tip percentage
 import android.widget.SeekBar.OnSeekBarChangeListener; // SeekBar listener
 import android.widget.TextView; // for displaying text
 
+import org.w3c.dom.Text;
+
 import java.text.NumberFormat; // for currency formatting
 
 // MainActivity class for the Tip Calculator app
@@ -24,10 +26,12 @@ public class MainActivity extends AppCompatActivity {
 
    private double billAmount = 0.0; // bill amount entered by the user
    private double percent = 0.15; // initial tip percentage
+   private int partySize = 1; // initial party size
    private TextView amountTextView; // shows formatted bill amount
    private TextView percentTextView; // shows tip percentage
    private TextView tipTextView; // shows calculated tip amount
    private TextView totalTextView; // shows calculated total bill amount
+   private TextView partyTextView; // shows party size
 
    // called when the activity is first created
    @Override
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
       percentTextView = (TextView) findViewById(R.id.percentTextView);
       tipTextView = (TextView) findViewById(R.id.tipTextView);
       totalTextView = (TextView) findViewById(R.id.totalTextView);
+      partyTextView = (TextView) findViewById(R.id.partyTextView);
       tipTextView.setText(currencyFormat.format(0));
       totalTextView.setText(currencyFormat.format(0));
 
@@ -47,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
       EditText amountEditText =
          (EditText) findViewById(R.id.amountEditText);
       amountEditText.addTextChangedListener(amountEditTextWatcher);
+
+      // set partyEditText's TextWatcher
+      EditText partyEditText =
+              (EditText) findViewById(R.id.partyEditText);
+      partyEditText.addTextChangedListener(partyEditTextWatcher);
 
       // set percentSeekBar's OnSeekBarChangeListener
       SeekBar percentSeekBar =
@@ -61,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
       // calculate the tip and total
       double tip = billAmount * percent;
-      double total = billAmount + tip;
+      double total = (billAmount + tip)/partySize;
 
       // display tip and total formatted as currency
       tipTextView.setText(currencyFormat.format(tip));
@@ -111,6 +121,32 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void beforeTextChanged(
          CharSequence s, int start, int count, int after) { }
+   };
+
+   private final TextWatcher partyEditTextWatcher = new TextWatcher() {
+      // called when the user modifies the party size
+      @Override
+      public void onTextChanged(CharSequence s, int start,
+                                int before, int count) {
+
+         try { // get party size and display currency formatted value
+            partySize = Integer.parseInt(s.toString());
+            partyTextView.setText(String.valueOf(partySize));
+         }
+         catch (NumberFormatException e) { // if s is empty or non-numeric
+            partyTextView.setText("");
+            partySize = 1;
+         }
+
+         calculate(); // update the tip and total TextViews
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) { }
+
+      @Override
+      public void beforeTextChanged(
+              CharSequence s, int start, int count, int after) { }
    };
 }
 
