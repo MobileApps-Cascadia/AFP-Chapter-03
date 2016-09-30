@@ -13,29 +13,54 @@
    android:useDefaultMargins="true">
 
    <EditText
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:inputType="number"
-      android:id="@+id/amountEditText"
-      android:layout_column="0"
-      android:digits="0123456789"
-      android:maxLength="6"
-      android:ems="10"
-      android:layout_columnSpan="2"/>
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:inputType="number"
+       android:id="@+id/amountEditText"
+       android:layout_column="0"
+       android:digits="0123456789"
+       android:maxLength="6"
+       android:ems="10"
+       android:layout_columnSpan="2"/>
 
    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:id="@+id/amountTextView"
-      android:layout_row="0"
-      android:layout_column="0"
-      android:layout_columnSpan="2"
-      android:hint="@string/enter_amount"
-      android:layout_gravity="fill_horizontal"
-      android:background="@color/amount_background"
-      android:padding="@dimen/textview_padding"
-      android:elevation="@dimen/elevation"/>
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:id="@+id/amountTextView"
+       android:layout_row="0"
+       android:layout_column="0"
+       android:layout_columnSpan="2"
+       android:hint="@string/enter_amount"
+       android:layout_gravity="fill_horizontal"
+       android:background="@color/amount_background"
+       android:padding="@dimen/textview_padding"
+       android:elevation="@dimen/elevation"/>
+
+   <EditText
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:inputType="number"
+       android:id="@+id/partyEditText"
+       android:layout_column="0"
+       android:digits="0123456789"
+       android:maxLength="6"
+       android:ems="10"
+       android:layout_columnSpan="2"/>
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:id="@+id/partyTextView"
+       android:layout_row="1"
+       android:layout_column="0"
+       android:layout_columnSpan="2"
+       android:hint="@string/enter_party"
+       android:layout_gravity="fill_horizontal"
+       android:background="@color/amount_background"
+       android:padding="@dimen/textview_padding"
+       android:elevation="@dimen/elevation"/>
 
    <TextView
       android:layout_width="wrap_content"
@@ -43,7 +68,7 @@
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:text="@string/tip_percentage"
       android:id="@+id/percentTextView"
-      android:layout_gravity="center_vertical|right"/>
+      android:layout_gravity="center_vertical|end"/>
 
    <SeekBar
       android:layout_width="wrap_content"
@@ -60,7 +85,7 @@
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:text="@string/tip"
       android:id="@+id/tipLabelTextView"
-      android:layout_gravity="right"/>
+      android:layout_gravity="end"/>
 
    <TextView
       android:layout_width="wrap_content"
@@ -79,7 +104,7 @@
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:text="@string/total"
       android:id="@+id/totalLabelTextView"
-      android:layout_gravity="right"/>
+      android:layout_gravity="end"/>
 
    <TextView
       android:layout_width="wrap_content"
