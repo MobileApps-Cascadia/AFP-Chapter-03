@@ -37,6 +37,31 @@
       android:padding="@dimen/textview_padding"
       android:elevation="@dimen/elevation"/>
 
+   <EditText
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:inputType="number"
+       android:id="@+id/partyEditText"
+       android:layout_column="0"
+       android:digits="0123456789"
+       android:maxLength="6"
+       android:ems="10"
+       android:layout_columnSpan="2"/>
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:id="@+id/partyTextView"
+       android:layout_row="1"
+       android:layout_column="0"
+       android:layout_columnSpan="2"
+       android:hint="@string/party_size"
+       android:layout_gravity="fill_horizontal"
+       android:background="@color/amount_background"
+       android:padding="@dimen/textview_padding"
+       android:elevation="@dimen/elevation"/>
+
    <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

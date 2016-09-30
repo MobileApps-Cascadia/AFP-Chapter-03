@@ -3,5 +3,6 @@
    <string name="enter_amount">Enter Amount</string>
    <string name="tip_percentage">15%</string>
    <string name="tip">Tip</string>
-   <string name="total">Total</string>
+   <string name="total">Total per Person</string>
+   <string name="party_size">Party Size</string>
 </resources>
