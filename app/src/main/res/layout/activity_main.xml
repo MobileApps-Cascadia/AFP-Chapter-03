@@ -44,7 +44,7 @@
        android:textColorLink="@android:color/holo_green_light" />
 
 
-//party entry
+//party entry/
    <TextView
        android:layout_width="160dp"
        android:layout_height="wrap_content"
