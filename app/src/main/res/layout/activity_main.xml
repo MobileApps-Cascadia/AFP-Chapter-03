@@ -10,6 +10,7 @@
    android:paddingBottom="@dimen/activity_vertical_margin"
    tools:context=".MainActivity"
    android:columnCount="2"
+   android:rowCount="5"
    android:useDefaultMargins="true">
 
    <EditText
@@ -23,6 +24,8 @@
       android:ems="10"
       android:layout_columnSpan="2"/>
 
+
+
    <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -35,7 +38,30 @@
       android:layout_gravity="fill_horizontal"
       android:background="@color/amount_background"
       android:padding="@dimen/textview_padding"
-      android:elevation="@dimen/elevation"/>
+      android:elevation="@dimen/elevation"
+       android:gravity="end"
+       android:textStyle="normal|bold"
+       android:textColorLink="@android:color/holo_green_light" />
+
+
+//party entry
+   <TextView
+       android:layout_width="160dp"
+       android:layout_height="wrap_content"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:id="@+id/peopleTextView"
+       android:layout_row="1"
+       android:layout_column="1"
+       android:hint="@string/people"
+       android:layout_gravity="fill_horizontal"
+
+       android:padding="12dp"
+       android:elevation="6dp"
+
+       android:gravity="end"
+       android:textStyle="normal|bold|italic" />
+
+   //Tip percent
 
    <TextView
       android:layout_width="wrap_content"
@@ -68,7 +94,7 @@
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:id="@+id/tipTextView"
       android:layout_gravity="fill_horizontal"
-      android:background="@color/result_background"
+      android:background="@android:color/holo_blue_light"
       android:gravity="center"
       android:padding="@dimen/textview_padding"
       android:elevation="@dimen/elevation"/>
@@ -87,9 +113,41 @@
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:id="@+id/totalTextView"
       android:layout_gravity="fill_horizontal"
-      android:background="@color/result_background"
+      android:background="@android:color/holo_blue_light"
       android:gravity="center"
       android:padding="@dimen/textview_padding"
       android:elevation="@dimen/elevation"/>
 
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:text="@string/total_ppl"
+       android:id="@+id/personLabelTextView" />
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:id="@+id/eachTextView"
+       android:layout_gravity="fill_horizontal"
+       android:background="@android:color/holo_blue_light"
+       android:padding="@dimen/textview_padding"
+       android:elevation="@dimen/elevation"/>
+
+   <EditText
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:inputType="number"
+       android:id="@+id/peopleEditText"
+       android:layout_row="1"
+       android:layout_column="0"
+       android:digits="0123456789"
+       android:maxLength="3"
+       android:ems="10"
+       android:layout_columnSpan="2"
+       android:gravity="bottom" />
+
+
+   />
 </GridLayout>
