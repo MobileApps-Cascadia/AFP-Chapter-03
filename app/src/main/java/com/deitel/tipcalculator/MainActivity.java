@@ -2,16 +2,16 @@
 // Calculates a bill total based on a tip percentage
 package com.deitel.tipcalculator;
 
-import android.os.Bundle; // for saving state information
-import android.support.v7.app.AppCompatActivity; // base class
-import android.text.Editable; // for EditText event handling
-import android.text.TextWatcher; // EditText listener
-import android.widget.EditText; // for bill amount input
-import android.widget.SeekBar; // for changing the tip percentage
-import android.widget.SeekBar.OnSeekBarChangeListener; // SeekBar listener
-import android.widget.TextView; // for displaying text
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
-import java.text.NumberFormat; // for currency formatting
+import java.text.NumberFormat;
 
 // MainActivity class for the Tip Calculator app
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
    private TextView percentTextView; // shows tip percentage
    private TextView tipTextView; // shows calculated tip amount
    private TextView totalTextView; // shows calculated total bill amount
-
+   private int  partySize;
    // called when the activity is first created
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,17 @@ public class MainActivity extends AppCompatActivity {
       tipTextView.setText(currencyFormat.format(0));
       totalTextView.setText(currencyFormat.format(0));
 
-      // set amountEditText's TextWatcher
+       EditText partyEditText = (EditText) findViewById(R.id.PartySizeEditText);
+
+     // partySize = Integer.parseInt(partyEditText.getText().toString());
+
+     partyEditText.addTextChangedListener(amountEditTextWatcher);
+
+       // set amountEditText's TextWatcher
       EditText amountEditText =
          (EditText) findViewById(R.id.amountEditText);
       amountEditText.addTextChangedListener(amountEditTextWatcher);
+
 
       // set percentSeekBar's OnSeekBarChangeListener
       SeekBar percentSeekBar =
@@ -61,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
       // calculate the tip and total
       double tip = billAmount * percent;
-      double total = billAmount + tip;
+      double total = (billAmount + tip);//partySize;
 
       // display tip and total formatted as currency
       tipTextView.setText(currencyFormat.format(tip));
