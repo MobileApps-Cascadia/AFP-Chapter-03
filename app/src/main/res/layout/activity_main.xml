@@ -92,4 +92,24 @@
       android:padding="@dimen/textview_padding"
       android:elevation="@dimen/elevation"/>
 
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:text="Party Size"
+       android:id="@+id/Party"
+       android:layout_gravity="right"/>
+
+   <EditText
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:inputType="number"
+       android:id="@+id/PartySize"
+       android:layout_column="0"
+       android:digits="0123456789"
+       android:maxLength="6"
+       android:ems="10"
+       android:layout_columnSpan="2"/>
+
+
 </GridLayout>

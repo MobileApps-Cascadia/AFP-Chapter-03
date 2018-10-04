@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
    private double billAmount = 0.0; // bill amount entered by the user
    private double percent = 0.15; // initial tip percentage
+   private double people = 1;
    private TextView amountTextView; // shows formatted bill amount
    private TextView percentTextView; // shows tip percentage
    private TextView tipTextView; // shows calculated tip amount
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
          (EditText) findViewById(R.id.amountEditText);
       amountEditText.addTextChangedListener(amountEditTextWatcher);
 
+      EditText PartySize = (EditText) findViewById(R.id.PartySize);
+      PartySize.addTextChangedListener(PartyWatcher);
+
       // set percentSeekBar's OnSeekBarChangeListener
       SeekBar percentSeekBar =
          (SeekBar) findViewById(R.id.percentSeekBar);
@@ -61,11 +65,18 @@ public class MainActivity extends AppCompatActivity {
 
       // calculate the tip and total
       double tip = billAmount * percent;
+
       double total = billAmount + tip;
+
+      double split = 0;
+
+      if(people > 1){
+         split = total/people;
+      }
 
       // display tip and total formatted as currency
       tipTextView.setText(currencyFormat.format(tip));
-      totalTextView.setText(currencyFormat.format(total));
+      totalTextView.setText(currencyFormat.format(total) + " and " + split + " per person") ;
    }
 
    // listener object for the SeekBar's progress changed events
@@ -96,11 +107,13 @@ public class MainActivity extends AppCompatActivity {
          try { // get bill amount and display currency formatted value
             billAmount = Double.parseDouble(s.toString()) / 100.0;
             amountTextView.setText(currencyFormat.format(billAmount));
+
          }
          catch (NumberFormatException e) { // if s is empty or non-numeric
             amountTextView.setText("");
             billAmount = 0.0;
          }
+
 
          calculate(); // update the tip and total TextViews
       }
@@ -111,6 +124,34 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void beforeTextChanged(
          CharSequence s, int start, int count, int after) { }
+   };
+
+   private final TextWatcher PartyWatcher = new TextWatcher() {
+      // called when the user modifies the bill amount
+      @Override
+      public void onTextChanged(CharSequence s, int start,
+                                int before, int count) {
+
+         try { // get bill amount and display currency formatted value
+            people = Double.parseDouble(s.toString());
+
+
+         }
+         catch (NumberFormatException e) { // if s is empty or non-numeric
+            amountTextView.setText("");
+            billAmount = 0.0;
+         }
+
+
+         calculate(); // update the tip and total TextViews
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) { }
+
+      @Override
+      public void beforeTextChanged(
+              CharSequence s, int start, int count, int after) { }
    };
 }
 
