@@ -24,10 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
    private double billAmount = 0.0; // bill amount entered by the user
    private double percent = 0.15; // initial tip percentage
+   private int partySize = 1; //party size entered by the user
    private TextView amountTextView; // shows formatted bill amount
    private TextView percentTextView; // shows tip percentage
    private TextView tipTextView; // shows calculated tip amount
    private TextView totalTextView; // shows calculated total bill amount
+   private TextView partySizeTextView; //shows party number
 
    // called when the activity is first created
    @Override
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
       percentTextView = (TextView) findViewById(R.id.percentTextView);
       tipTextView = (TextView) findViewById(R.id.tipTextView);
       totalTextView = (TextView) findViewById(R.id.totalTextView);
+      partySizeTextView = (TextView) findViewById(R.id.partyLabelTextView);//is there a way to ensure this will always be a number?
       tipTextView.setText(currencyFormat.format(0));
       totalTextView.setText(currencyFormat.format(0));
 
@@ -52,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
       SeekBar percentSeekBar =
          (SeekBar) findViewById(R.id.percentSeekBar);
       percentSeekBar.setOnSeekBarChangeListener(seekBarListener);
+
+      //set partySizeEditText's TextWatcher
+      EditText partySizeEditText =
+              (EditText) findViewById(R.id.partyEditText);
+      partySizeEditText.addTextChangedListener(partySizeEditTextWatcher);
    }
 
    // calculate and display tip and total amounts
@@ -61,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
       // calculate the tip and total
       double tip = billAmount * percent;
-      double total = billAmount + tip;
+      double total = (billAmount + tip)/ new Double(partySize);
 
       // display tip and total formatted as currency
       tipTextView.setText(currencyFormat.format(tip));
@@ -87,6 +95,31 @@ public class MainActivity extends AppCompatActivity {
       };
 
    // listener object for the EditText's text-changed events
+   private final TextWatcher partySizeEditTextWatcher = new TextWatcher() {
+       @Override
+       public void onTextChanged(CharSequence s, int start, int before, int count) {
+           try { // get number and display value
+               partySize = Integer.parseInt(s.toString());
+               partySizeTextView.setText(partySize+"");
+           }
+           catch (NumberFormatException e) { // if s is empty or non-numeric
+               partySize = 1;
+               partySizeTextView.setText("");
+           }
+
+           calculate(); // update the tip and total TextViews
+       }
+
+       @Override
+       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+       }
+       @Override
+       public void afterTextChanged(Editable editable) {
+
+       }
+   };
+
    private final TextWatcher amountEditTextWatcher = new TextWatcher() {
       // called when the user modifies the bill amount
       @Override
