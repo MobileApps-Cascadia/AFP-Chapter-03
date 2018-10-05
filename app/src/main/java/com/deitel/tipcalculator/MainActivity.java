@@ -138,8 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
          }
          catch (NumberFormatException e) { // if s is empty or non-numeric
-            amountTextView.setText("");
-            billAmount = 0.0;
+
          }
 
 
