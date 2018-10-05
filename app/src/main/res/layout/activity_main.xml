@@ -41,6 +41,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_gravity="center_vertical|right"
+       android:layout_row="2"
        android:text="@string/tip_percentage"
        android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -48,6 +49,7 @@
        android:id="@+id/percentSeekBar"
        android:layout_width="wrap_content"
        android:layout_height="@dimen/seekbar_height"
+       android:layout_row="3"
        android:layout_gravity="fill_horizontal"
        android:indeterminate="false"
        android:max="30"
@@ -58,6 +60,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_gravity="right"
+       android:layout_row="3"
        android:text="@string/tip"
        android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -66,6 +69,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_gravity="fill_horizontal"
+       android:layout_row="4"
        android:background="@color/result_background"
        android:elevation="@dimen/elevation"
        android:gravity="center"
@@ -77,6 +81,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_gravity="right"
+       android:layout_row="4"
        android:text="@string/total"
        android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -85,10 +90,11 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_gravity="fill_horizontal"
+       android:layout_row="5"
        android:background="@color/result_background"
-       android:elevation="@dimen/elevation"
+       android:elevation="2sp"
        android:gravity="center"
-       android:padding="@dimen/textview_padding"
+       android:padding="10dp"
        android:textAppearance="?android:attr/textAppearanceMedium" />
 
    <EditText
@@ -96,6 +102,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_column="0"
+       android:layout_row="1"
        android:layout_columnSpan="2"
        android:digits="0123456789"
        android:ems="10"
@@ -106,7 +113,7 @@
        android:id="@+id/partyLabelTextView"
        android:layout_width="150dp"
        android:layout_height="wrap_content"
-       android:layout_row="4"
+       android:layout_row="1"
        android:layout_column="0"
        android:layout_columnSpan="2"
        android:layout_gravity="fill_horizontal"
