@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
    private TextView percentTextView; // shows tip percentage
    private TextView tipTextView; // shows calculated tip amount
    private TextView totalTextView; // shows calculated total bill amount
+   private int partySize; // partySize entered by user
+   private TextView partySizeTextView;
+   private TextView totalPerPersonEditText; // shows the total per person
+
 
    // called when the activity is first created
    @Override
@@ -42,18 +46,26 @@ public class MainActivity extends AppCompatActivity {
       totalTextView = (TextView) findViewById(R.id.totalTextView);
       tipTextView.setText(currencyFormat.format(0));
       totalTextView.setText(currencyFormat.format(0));
+      totalPerPersonEditText = (TextView) findViewById(R.id.totalPerPersonEditText);
+
 
       // set amountEditText's TextWatcher
       EditText amountEditText =
          (EditText) findViewById(R.id.amountEditText);
       amountEditText.addTextChangedListener(amountEditTextWatcher);
 
+      // set partySizeEditText's TextWatcher
+      EditText partySizeEditText =
+              (EditText) findViewById(R.id.partySizeEditText);
+      partySizeEditText.addTextChangedListener(partySizeEditTextWatcher);
+
+
       // set percentSeekBar's OnSeekBarChangeListener
       SeekBar percentSeekBar =
          (SeekBar) findViewById(R.id.percentSeekBar);
       percentSeekBar.setOnSeekBarChangeListener(seekBarListener);
    }
-
+ public double total;
    // calculate and display tip and total amounts
    private void calculate() {
       // format percent and display in percentTextView
@@ -61,11 +73,16 @@ public class MainActivity extends AppCompatActivity {
 
       // calculate the tip and total
       double tip = billAmount * percent;
-      double total = billAmount + tip;
+      total = billAmount + tip;
 
       // display tip and total formatted as currency
       tipTextView.setText(currencyFormat.format(tip));
       totalTextView.setText(currencyFormat.format(total));
+   }
+
+   private void calculatePerPerson(){
+      double totalPerPerson = total / partySize;
+      totalPerPersonEditText.setText(currencyFormat.format(totalPerPerson));
    }
 
    // listener object for the SeekBar's progress changed events
@@ -77,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             boolean fromUser) {
             percent = progress / 100.0; // set percent based on progress
             calculate(); // calculate and display tip and total
+            calculatePerPerson();
          }
 
          @Override
@@ -85,6 +103,30 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onStopTrackingTouch(SeekBar seekBar) { }
       };
+
+   // listener object for the partySizeEditText's text-changed events
+   private  final TextWatcher partySizeEditTextWatcher = new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+         try { // get partySizeEditText amount
+            partySize = Integer.parseInt(s.toString());
+         }
+         catch (NumberFormatException e) { // if s is empty or non-numeric
+            partySize = 1;
+         }
+         calculatePerPerson();
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+
+      }
+   };
 
    // listener object for the EditText's text-changed events
    private final TextWatcher amountEditTextWatcher = new TextWatcher() {
@@ -104,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
 
          calculate(); // update the tip and total TextViews
       }
+
+
 
       @Override
       public void afterTextChanged(Editable s) { }
