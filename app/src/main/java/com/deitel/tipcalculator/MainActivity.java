@@ -22,12 +22,14 @@ public class MainActivity extends AppCompatActivity {
    private static final NumberFormat percentFormat =
       NumberFormat.getPercentInstance();
 
+   private int party = 1;
    private double billAmount = 0.0; // bill amount entered by the user
    private double percent = 0.15; // initial tip percentage
    private TextView amountTextView; // shows formatted bill amount
    private TextView percentTextView; // shows tip percentage
    private TextView tipTextView; // shows calculated tip amount
    private TextView totalTextView; // shows calculated total bill amount
+   private TextView partyTextView;
 
    // called when the activity is first created
    @Override
@@ -42,11 +44,16 @@ public class MainActivity extends AppCompatActivity {
       totalTextView = (TextView) findViewById(R.id.totalTextView);
       tipTextView.setText(currencyFormat.format(0));
       totalTextView.setText(currencyFormat.format(0));
+      partyTextView = (TextView) findViewById(R.id.partyTextView);
 
       // set amountEditText's TextWatcher
       EditText amountEditText =
          (EditText) findViewById(R.id.amountEditText);
       amountEditText.addTextChangedListener(amountEditTextWatcher);
+
+      EditText partyEditText =
+              (EditText) findViewById(R.id.partyEditText);
+      partyEditText.addTextChangedListener(partyEditTextWatcher);
 
       // set percentSeekBar's OnSeekBarChangeListener
       SeekBar percentSeekBar =
@@ -61,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
       // calculate the tip and total
       double tip = billAmount * percent;
-      double total = billAmount + tip;
+      double total = (billAmount + tip) / party;
 
       // display tip and total formatted as currency
       tipTextView.setText(currencyFormat.format(tip));
@@ -91,19 +98,46 @@ public class MainActivity extends AppCompatActivity {
       // called when the user modifies the bill amount
       @Override
       public void onTextChanged(CharSequence s, int start,
-         int before, int count) {
+                                int before, int count) {
 
          try { // get bill amount and display currency formatted value
             billAmount = Double.parseDouble(s.toString()) / 100.0;
             amountTextView.setText(currencyFormat.format(billAmount));
-         }
-         catch (NumberFormatException e) { // if s is empty or non-numeric
+         } catch (NumberFormatException e) { // if s is empty or non-numeric
             amountTextView.setText("");
             billAmount = 0.0;
          }
 
          calculate(); // update the tip and total TextViews
       }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+      }
+
+      @Override
+      public void beforeTextChanged(
+              CharSequence s, int start, int count, int after) {
+      }
+   };
+
+      // listener object for the EditText's text-changed events
+      private final TextWatcher partyEditTextWatcher = new TextWatcher() {
+         // called when the user modifies the bill amount
+         @Override
+         public void onTextChanged(CharSequence s, int start,
+                                   int before, int count) {
+
+            try { // get bill amount and display currency formatted value
+               party = Integer.parseInt(s.toString());
+            }
+            catch (NumberFormatException e) { // if s is empty or non-numeric
+               partyTextView.setText("");
+               party = 1;
+            }
+
+            calculate(); // update the tip and total TextViews
+         }
 
       @Override
       public void afterTextChanged(Editable s) { }
